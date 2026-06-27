@@ -1,0 +1,13 @@
+# DB
+database.db
+
+# Env
+.env
+
+# Build
+*.exe
+*.out
+
+# OS
+.DS_Store
+Thumbs.db
