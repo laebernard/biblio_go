@@ -11,5 +11,7 @@ func main() {
 		c.JSON(200, gin.H{"message": "DB connected ✅"})
 	})
 
+	r.POST("/user/register", Register)
+
 	r.Run(":8080")
 }
