@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"log"
 
+	"golang.org/x/crypto/bcrypt"
+
 	_ "modernc.org/sqlite"
 )
 
@@ -17,6 +19,7 @@ func InitDB() {
 	}
 
 	createTable()
+	createAdmin()
 }
 
 func createTable() {
@@ -31,6 +34,20 @@ func createTable() {
 	`
 
 	_, err := DB.Exec(query)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func createAdmin() {
+	password, _ := bcrypt.GenerateFromPassword([]byte("admin123"), bcrypt.DefaultCost)
+
+	query := `
+	INSERT OR IGNORE INTO users (name, email, password, isAdmin)
+	VALUES (?, ?, ?, ?)
+	`
+
+	_, err := DB.Exec(query, "Admin", "admin@mail.com", string(password), true)
 	if err != nil {
 		log.Fatal(err)
 	}
