@@ -26,6 +26,7 @@ func main() {
 			})
 		})
 		auth.PUT("/user/me", UpdateMe)
+		auth.PUT("/user/:id", UpdateUserByAdmin)
 	}
 
 	r.Run(":8080")
