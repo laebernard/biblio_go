@@ -119,3 +119,53 @@ func Login(c *gin.Context) {
 		"token": tokenString,
 	})
 }
+
+type UpdateMeInput struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func UpdateMe(c *gin.Context) {
+	userID, exists := c.Get("userID")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
+		return
+	}
+
+	var input UpdateMeInput
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+		return
+	}
+
+	// Hash password si fourni
+	var hashedPassword string
+	if input.Password != "" {
+		hash, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
+		hashedPassword = string(hash)
+	}
+
+	// Update dynamique
+	query := "UPDATE users SET name = ?, email = ?"
+	args := []interface{}{input.Name, input.Email}
+
+	if hashedPassword != "" {
+		query += ", password = ?"
+		args = append(args, hashedPassword)
+	}
+
+	query += " WHERE id = ?"
+	args = append(args, userID)
+
+	_, err := DB.Exec(query, args...)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update failed"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Profile updated",
+	})
+}
