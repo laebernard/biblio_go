@@ -13,5 +13,7 @@ func main() {
 
 	r.POST("/user/register", Register)
 
+	r.POST("/user/login", Login)
+
 	r.Run(":8080")
 }

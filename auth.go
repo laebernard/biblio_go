@@ -66,3 +66,56 @@ func Register(c *gin.Context) {
 		"token": tokenString,
 	})
 }
+
+type LoginInput struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func Login(c *gin.Context) {
+	var input LoginInput
+
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
+		return
+	}
+
+	var id int
+	var hashedPassword string
+	var isAdmin bool
+
+	err := DB.QueryRow(
+		"SELECT id, password, isAdmin FROM users WHERE email = ?",
+		input.Email,
+	).Scan(&id, &hashedPassword, &isAdmin)
+
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
+		return
+	}
+
+	// Vérifier le mot de passe
+	err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(input.Password))
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
+		return
+	}
+
+	// Générer JWT
+	expirationTime := time.Now().Add(24 * time.Hour)
+
+	claims := &Claims{
+		UserID:  id,
+		IsAdmin: isAdmin,
+		RegisteredClaims: jwt.RegisteredClaims{
+			ExpiresAt: jwt.NewNumericDate(expirationTime),
+		},
+	}
+
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, _ := token.SignedString(jwtKey)
+
+	c.JSON(http.StatusOK, gin.H{
+		"token": tokenString,
+	})
+}
