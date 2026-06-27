@@ -27,6 +27,7 @@ func main() {
 		})
 		auth.PUT("/user/me", UpdateMe)
 		auth.PUT("/user/:id", UpdateUserByAdmin)
+		auth.DELETE("/reset", ResetDatabase)
 	}
 
 	r.Run(":8080")

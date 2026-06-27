@@ -225,3 +225,22 @@ func UpdateUserByAdmin(c *gin.Context) {
 		"message": "User updated by admin",
 	})
 }
+
+func ResetDatabase(c *gin.Context) {
+	isAdmin, _ := c.Get("isAdmin")
+
+	if !isAdmin.(bool) {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Admin only"})
+		return
+	}
+
+	err := ResetDB()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Reset failed"})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Database reset successful",
+	})
+}

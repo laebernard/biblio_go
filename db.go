@@ -52,3 +52,16 @@ func createAdmin() {
 		log.Fatal(err)
 	}
 }
+
+func ResetDB() error {
+	query := `DROP TABLE IF EXISTS users;`
+	_, err := DB.Exec(query)
+	if err != nil {
+		return err
+	}
+
+	createTable()
+	createAdmin()
+
+	return nil
+}
