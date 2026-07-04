@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"biblio_go/database"
+	"biblio_go/logger"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -29,9 +30,12 @@ func Register(c *gin.Context) {
 	var input RegisterInput
 
 	if err := c.ShouldBindJSON(&input); err != nil {
+		logger.Error("Register - Invalid input: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
+
+	logger.Info("Register - New registration attempt for email: %s", input.Email)
 
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 
@@ -44,6 +48,7 @@ func Register(c *gin.Context) {
 	)
 
 	if err != nil {
+		logger.Error("Register - Email already exists: %s", input.Email)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Email already exists"})
 		return
 	}
@@ -64,6 +69,8 @@ func Register(c *gin.Context) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, _ := token.SignedString(jwtKey)
 
+	logger.Info("Register - User registered successfully: %s (ID: %d)", input.Email, userID)
+
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
 	})
@@ -78,9 +85,12 @@ func Login(c *gin.Context) {
 	var input LoginInput
 
 	if err := c.ShouldBindJSON(&input); err != nil {
+		logger.Error("Login - Invalid input: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
+
+	logger.Info("Login - Login attempt for email: %s", input.Email)
 
 	var id int
 	var hashedPassword string
@@ -92,6 +102,7 @@ func Login(c *gin.Context) {
 	).Scan(&id, &hashedPassword, &isAdmin)
 
 	if err != nil {
+		logger.Error("Login - Invalid credentials for email: %s", input.Email)
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 		return
 	}
@@ -99,6 +110,7 @@ func Login(c *gin.Context) {
 	// Vérifier le mot de passe
 	err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(input.Password))
 	if err != nil {
+		logger.Error("Login - Invalid password for email: %s", input.Email)
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 		return
 	}
@@ -116,6 +128,8 @@ func Login(c *gin.Context) {
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, _ := token.SignedString(jwtKey)
+
+	logger.Info("Login - User logged in successfully: %s", input.Email)
 
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,

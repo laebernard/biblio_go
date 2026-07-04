@@ -1,8 +1,8 @@
 package services
 
 import (
-	"movie-catalog-api/models"
-	"movie-catalog-api/repositories"
+	"biblio_go/models"
+	"biblio_go/repositories"
 )
 
 func GetMovies() ([]models.Movie, error) {

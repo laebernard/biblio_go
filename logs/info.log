@@ -1,0 +1,42 @@
+[INFO] 2026/07/04 11:45:52 [2026-07-04 11:45:52] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/04 11:46:01 [2026-07-04 11:46:01] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/04 11:46:03 [2026-07-04 11:46:03] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/04 11:46:06 [2026-07-04 11:46:06] Register - New registration attempt for email: test@example.com
+[INFO] 2026/07/04 11:46:06 [2026-07-04 11:46:06] Register - User registered successfully: test@example.com (ID: 7)
+[INFO] 2026/07/04 11:46:21 [2026-07-04 11:46:21] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/04 11:46:21 [2026-07-04 11:46:21] Login - User logged in successfully: test@example.com
+[INFO] 2026/07/04 11:46:29 [2026-07-04 11:46:29] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/04 11:46:29 [2026-07-04 11:46:29] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/04 11:46:32 [2026-07-04 11:46:32] GET /movies - Fetching all movies
+[INFO] 2026/07/04 11:46:32 [2026-07-04 11:46:32] GET /movies - Successfully fetched 0 movies
+[INFO] 2026/07/04 11:46:54 [2026-07-04 11:46:54] GET /movies - Fetching all movies
+[INFO] 2026/07/04 11:46:54 [2026-07-04 11:46:54] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 11:47:46 [2026-07-04 11:47:46] DELETE /movies/:id - Movie deleted successfully
+[INFO] 2026/07/04 11:48:01 [2026-07-04 11:48:01] GET /movies - Fetching all movies
+[INFO] 2026/07/04 11:48:01 [2026-07-04 11:48:01] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/04 11:48:28 [2026-07-04 11:48:28] GET /movies - Fetching all movies
+[INFO] 2026/07/04 11:48:28 [2026-07-04 11:48:28] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/04 11:50:07 [2026-07-04 11:50:07] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/04 11:50:07 [2026-07-04 11:50:07] Login - User logged in successfully: test@example.com
+[INFO] 2026/07/04 11:57:10 [2026-07-04 11:57:10] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/04 11:57:10 [2026-07-04 11:57:10] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/04 11:59:06 [2026-07-04 11:59:06] Register - New registration attempt for email: test@example.com
+[INFO] 2026/07/04 11:59:11 [2026-07-04 11:59:11] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/04 11:59:12 [2026-07-04 11:59:12] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/04 12:07:49 [2026-07-04 12:07:49] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/04 12:07:50 [2026-07-04 12:07:50] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/04 12:09:34 [2026-07-04 12:09:34] GET /movies - Fetching all movies
+[INFO] 2026/07/04 12:09:34 [2026-07-04 12:09:34] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 12:10:26 [2026-07-04 12:10:26] GET /movies - Fetching all movies
+[INFO] 2026/07/04 12:10:26 [2026-07-04 12:10:26] GET /movies - Successfully fetched 3 movies
+[INFO] 2026/07/04 12:11:00 [2026-07-04 12:11:00] GET /movies - Fetching all movies
+[INFO] 2026/07/04 12:11:00 [2026-07-04 12:11:00] GET /movies - Successfully fetched 3 movies
+[INFO] 2026/07/04 12:11:15 [2026-07-04 12:11:15] DELETE /movies/:id - Movie deleted successfully
+[INFO] 2026/07/04 12:11:19 [2026-07-04 12:11:19] DELETE /movies/:id - Movie deleted successfully
+[INFO] 2026/07/04 12:11:27 [2026-07-04 12:11:27] DELETE /movies/:id - Movie deleted successfully
+[INFO] 2026/07/04 12:11:32 [2026-07-04 12:11:32] GET /movies - Fetching all movies
+[INFO] 2026/07/04 12:11:32 [2026-07-04 12:11:32] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 12:12:16 [2026-07-04 12:12:16] GET /movies - Fetching all movies
+[INFO] 2026/07/04 12:12:16 [2026-07-04 12:12:16] GET /movies - Successfully fetched 0 movies
+[INFO] 2026/07/04 12:12:23 [2026-07-04 12:12:23] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/04 12:12:23 [2026-07-04 12:12:23] Login - User logged in successfully: admin@mail.com

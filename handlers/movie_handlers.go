@@ -3,6 +3,7 @@ package handlers
 import (
 	"net/http"
 
+	"biblio_go/logger"
 	"biblio_go/models"
 	"biblio_go/services"
 
@@ -17,12 +18,15 @@ func parseID(id string) uint {
 }
 
 func GetMovies(c *gin.Context) {
+	logger.Info("GET /movies - Fetching all movies")
 	movies, err := services.GetMovies()
 	if err != nil {
+		logger.Error("GET /movies - Error: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot fetch movies"})
 		return
 	}
 
+	logger.Info("GET /movies - Successfully fetched %d movies", len(movies))
 	c.JSON(http.StatusOK, movies)
 }
 
@@ -82,9 +86,11 @@ func DeleteMovie(c *gin.Context) {
 
 	err := services.DeleteMovie(id)
 	if err != nil {
+		logger.Error("DELETE /movies/:id - Error: %v", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot delete movie"})
 		return
 	}
 
+	logger.Info("DELETE /movies/:id - Movie deleted successfully")
 	c.JSON(http.StatusOK, gin.H{"message": "movie deleted"})
 }
