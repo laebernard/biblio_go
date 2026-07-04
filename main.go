@@ -28,6 +28,8 @@ func main() {
 
 	r.POST("/user/login", security.Login)
 
+	r.GET("/search", handlers.SearchMovies)
+
 	// Routes protégées par authentification
 	auth := r.Group("/")
 	auth.Use(security.AuthMiddleware())

@@ -24,3 +24,7 @@ func UpdateMovie(movie models.Movie) error {
 func DeleteMovie(id string) error {
 	return repositories.DeleteMovie(id)
 }
+
+func SearchMovies(query string) ([]models.Movie, error) {
+	return repositories.SearchMovies(query)
+}

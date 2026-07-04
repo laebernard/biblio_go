@@ -94,3 +94,22 @@ func DeleteMovie(c *gin.Context) {
 	logger.Info("DELETE /movies/:id - Movie deleted successfully")
 	c.JSON(http.StatusOK, gin.H{"message": "movie deleted"})
 }
+
+func SearchMovies(c *gin.Context) {
+	query := c.Query("query")
+	if query == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "query parameter is required"})
+		return
+	}
+
+	logger.Info("GET /search - Searching movies with query: %s", query)
+	movies, err := services.SearchMovies(query)
+	if err != nil {
+		logger.Error("GET /search - Error: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot search movies"})
+		return
+	}
+
+	logger.Info("GET /search - Found %d movies", len(movies))
+	c.JSON(http.StatusOK, movies)
+}

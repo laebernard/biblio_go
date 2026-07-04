@@ -2,3 +2,4 @@
 [ERROR] 2026/07/04 11:46:01 [2026-07-04 11:46:01] Login - Invalid credentials for email: test@example.com
 [ERROR] 2026/07/04 11:46:03 [2026-07-04 11:46:03] Login - Invalid credentials for email: test@example.com
 [ERROR] 2026/07/04 11:59:06 [2026-07-04 11:59:06] Register - Email already exists: test@example.com
+[ERROR] 2026/07/04 12:39:21 [2026-07-04 12:39:21] Register - Email already exists: testuser@example.com
