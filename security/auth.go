@@ -1,8 +1,10 @@
-package main
+package security
 
 import (
 	"net/http"
 	"time"
+
+	"biblio_go/database"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -33,7 +35,7 @@ func Register(c *gin.Context) {
 
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 
-	res, err := DB.Exec(
+	res, err := database.DB.Exec(
 		"INSERT INTO users (name, email, password, isAdmin) VALUES (?, ?, ?, ?)",
 		input.Name,
 		input.Email,
@@ -84,7 +86,7 @@ func Login(c *gin.Context) {
 	var hashedPassword string
 	var isAdmin bool
 
-	err := DB.QueryRow(
+	err := database.DB.QueryRow(
 		"SELECT id, password, isAdmin FROM users WHERE email = ?",
 		input.Email,
 	).Scan(&id, &hashedPassword, &isAdmin)
@@ -159,7 +161,7 @@ func UpdateMe(c *gin.Context) {
 	query += " WHERE id = ?"
 	args = append(args, userID)
 
-	_, err := DB.Exec(query, args...)
+	_, err := database.DB.Exec(query, args...)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update failed"})
 		return
@@ -180,7 +182,7 @@ func UpdateUserByAdmin(c *gin.Context) {
 	id := c.Param("id")
 
 	var targetIsAdmin bool
-	err := DB.QueryRow("SELECT isAdmin FROM users WHERE id = ?", id).Scan(&targetIsAdmin)
+	err := database.DB.QueryRow("SELECT isAdmin FROM users WHERE id = ?", id).Scan(&targetIsAdmin)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
@@ -215,7 +217,7 @@ func UpdateUserByAdmin(c *gin.Context) {
 	query += " WHERE id = ?"
 	args = append(args, id)
 
-	_, err = DB.Exec(query, args...)
+	_, err = database.DB.Exec(query, args...)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update failed"})
 		return
@@ -234,7 +236,7 @@ func ResetDatabase(c *gin.Context) {
 		return
 	}
 
-	err := ResetDB()
+	err := database.ResetDB()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Reset failed"})
 		return

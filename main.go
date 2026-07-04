@@ -1,9 +1,14 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"biblio_go/database"
+	"biblio_go/security"
+
+	"github.com/gin-gonic/gin"
+)
 
 func main() {
-	InitDB()
+	database.InitDB()
 
 	r := gin.Default()
 
@@ -11,12 +16,12 @@ func main() {
 		c.JSON(200, gin.H{"message": "DB connected ✅"})
 	})
 
-	r.POST("/user/register", Register)
+	r.POST("/user/register", security.Register)
 
-	r.POST("/user/login", Login)
+	r.POST("/user/login", security.Login)
 
 	auth := r.Group("/")
-	auth.Use(AuthMiddleware())
+	auth.Use(security.AuthMiddleware())
 	{
 		auth.GET("/protected", func(c *gin.Context) {
 			userID, _ := c.Get("userID")
@@ -25,9 +30,9 @@ func main() {
 				"userID":  userID,
 			})
 		})
-		auth.PUT("/user/me", UpdateMe)
-		auth.PUT("/user/:id", UpdateUserByAdmin)
-		auth.DELETE("/reset", ResetDatabase)
+		auth.PUT("/user/me", security.UpdateMe)
+		auth.PUT("/user/:id", security.UpdateUserByAdmin)
+		auth.DELETE("/reset", security.ResetDatabase)
 	}
 
 	r.Run(":8080")
