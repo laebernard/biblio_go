@@ -101,3 +101,34 @@
 [INFO] 2026/07/04 13:06:50 [2026-07-04 13:06:50] Login - User logged in successfully: admin@mail.com
 [INFO] 2026/07/04 13:07:03 [2026-07-04 13:07:03] GET /movies - Fetching all movies
 [INFO] 2026/07/04 13:07:03 [2026-07-04 13:07:03] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:20:08 [2026-07-04 13:20:08] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/04 13:21:04 [2026-07-04 13:21:04] Register - New registration attempt for email: test@example.com
+[INFO] 2026/07/04 13:21:04 [2026-07-04 13:21:04] Register - User registered successfully: test@example.com (ID: 8)
+[INFO] 2026/07/04 13:21:07 [2026-07-04 13:21:07] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/04 13:21:07 [2026-07-04 13:21:07] Login - User logged in successfully: test@example.com
+[INFO] 2026/07/04 13:22:04 [2026-07-04 13:22:04] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:22:04 [2026-07-04 13:22:04] GET /movies - Successfully fetched 3 movies
+[INFO] 2026/07/04 13:22:18 [2026-07-04 13:22:18] GET /search - Searching movies with query: diversion
+[INFO] 2026/07/04 13:22:18 [2026-07-04 13:22:18] GET /search - Found 1 movies
+[INFO] 2026/07/04 13:22:22 [2026-07-04 13:22:22] DELETE /movies/:id - Movie deleted successfully
+[INFO] 2026/07/04 13:31:16 [2026-07-04 13:31:16] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/04 13:31:16 [2026-07-04 13:31:16] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/04 13:33:09 [2026-07-04 13:33:09] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:33:09 [2026-07-04 13:33:09] GET /movies - Successfully fetched 0 movies
+[INFO] 2026/07/04 13:33:19 [2026-07-04 13:33:19] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:33:19 [2026-07-04 13:33:19] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/04 13:34:16 [2026-07-04 13:34:16] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:34:16 [2026-07-04 13:34:16] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:34:33 [2026-07-04 13:34:33] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:34:33 [2026-07-04 13:34:33] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:34:45 [2026-07-04 13:34:45] GET /search - Searching movies with query: Invincible
+[INFO] 2026/07/04 13:34:45 [2026-07-04 13:34:45] GET /search - Found 1 movies
+[INFO] 2026/07/04 13:34:50 [2026-07-04 13:34:50] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:34:50 [2026-07-04 13:34:50] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:35:01 [2026-07-04 13:35:01] GET /search - Searching movies with query: Glenn
+[INFO] 2026/07/04 13:35:01 [2026-07-04 13:35:01] GET /search - Found 1 movies
+[INFO] 2026/07/04 13:35:27 [2026-07-04 13:35:27] DELETE /movies/:id - Movie deleted successfully
+[INFO] 2026/07/04 13:35:33 [2026-07-04 13:35:33] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:35:33 [2026-07-04 13:35:33] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/04 13:35:44 [2026-07-04 13:35:44] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:35:44 [2026-07-04 13:35:44] GET /movies - Successfully fetched 2 movies

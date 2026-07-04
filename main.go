@@ -38,7 +38,9 @@ func main() {
 		auth.GET("/movies", handlers.GetMovies)
 		auth.GET("/movies/:id", handlers.GetMovie)
 		auth.POST("/movies", handlers.CreateMovie)
+		auth.PUT("/movies/bulk", handlers.BulkUpdateMovies)
 		auth.PUT("/movies/:id", handlers.UpdateMovie)
+		auth.DELETE("/movies", handlers.BulkDeleteMovies)
 		auth.DELETE("/movies/:id", handlers.DeleteMovie)
 
 		// Routes utilisateur

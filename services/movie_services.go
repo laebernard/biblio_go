@@ -28,3 +28,11 @@ func DeleteMovie(id string) error {
 func SearchMovies(query string) ([]models.Movie, error) {
 	return repositories.SearchMovies(query)
 }
+
+func BulkDeleteMovies(ids []uint) error {
+	return repositories.BulkDeleteMovies(ids)
+}
+
+func BulkUpdateMovies(movies []models.Movie) error {
+	return repositories.BulkUpdateMovies(movies)
+}

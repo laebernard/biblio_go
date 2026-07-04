@@ -26,6 +26,15 @@ type RegisterInput struct {
 	Password string `json:"password"`
 }
 
+// Register godoc
+// @Summary      Inscription d'un nouvel utilisateur
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Param        input  body      RegisterInput  true  "Données d'inscription"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Router       /user/register [post]
 func Register(c *gin.Context) {
 	var input RegisterInput
 
@@ -81,6 +90,16 @@ type LoginInput struct {
 	Password string `json:"password"`
 }
 
+// Login godoc
+// @Summary      Connexion utilisateur
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Param        input  body      LoginInput  true  "Email et mot de passe"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Failure      401  {object}  map[string]string
+// @Router       /user/login [post]
 func Login(c *gin.Context) {
 	var input LoginInput
 
@@ -142,6 +161,17 @@ type UpdateMeInput struct {
 	Password string `json:"password"`
 }
 
+// UpdateMe godoc
+// @Summary      Met à jour son propre profil
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        input  body      UpdateMeInput  true  "Nouvelles données"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Failure      401  {object}  map[string]string
+// @Router       /user/me [put]
 func UpdateMe(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
