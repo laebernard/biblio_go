@@ -97,3 +97,7 @@
 [INFO] 2026/07/04 12:54:20 [2026-07-04 12:54:20] GET /movies - Successfully fetched 1 movies
 [INFO] 2026/07/04 12:54:37 [2026-07-04 12:54:37] GET /movies - Fetching all movies
 [INFO] 2026/07/04 12:54:37 [2026-07-04 12:54:37] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:06:50 [2026-07-04 13:06:50] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/04 13:06:50 [2026-07-04 13:06:50] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/04 13:07:03 [2026-07-04 13:07:03] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:07:03 [2026-07-04 13:07:03] GET /movies - Successfully fetched 2 movies
