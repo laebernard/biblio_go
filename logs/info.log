@@ -132,3 +132,11 @@
 [INFO] 2026/07/04 13:35:33 [2026-07-04 13:35:33] GET /movies - Successfully fetched 1 movies
 [INFO] 2026/07/04 13:35:44 [2026-07-04 13:35:44] GET /movies - Fetching all movies
 [INFO] 2026/07/04 13:35:44 [2026-07-04 13:35:44] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:44:16 [2026-07-04 13:44:16] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:44:16 [2026-07-04 13:44:16] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:44:25 [2026-07-04 13:44:25] PUT /movies/bulk - Bulk updated 2 movies
+[INFO] 2026/07/04 13:44:32 [2026-07-04 13:44:32] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:44:32 [2026-07-04 13:44:32] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/04 13:44:37 [2026-07-04 13:44:37] DELETE /movies - Bulk deleted 2 movies
+[INFO] 2026/07/04 13:44:45 [2026-07-04 13:44:45] GET /movies - Fetching all movies
+[INFO] 2026/07/04 13:44:45 [2026-07-04 13:44:45] GET /movies - Successfully fetched 0 movies

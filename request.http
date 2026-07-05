@@ -1,0 +1,149 @@
+@baseUrl = http://localhost:8080
+@adminToken =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjEsIklzQWRtaW4iOnRydWUsImV4cCI6MTc4MzI1MTA3Nn0.cPZNy7aj1EzCVTdBG0xQLRiVp1BovXfAK6mJvfu5-Ak
+
+@userToken =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjgsIklzQWRtaW4iOmZhbHNlLCJleHAiOjE3ODMyNTA0Njd9.D5AWvJt6_1RL8K0j-q2DAl1IHpgfeBlHOBY-y0zl3oo
+
+
+### Health Check
+GET {{baseUrl}}/
+
+### Register Admin User
+POST {{baseUrl}}/user/register
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### Login User
+POST {{baseUrl}}/user/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+### Login Admin
+POST {{baseUrl}}/user/login
+Content-Type: application/json
+
+{
+  "email": "admin@mail.com",
+  "password": "admin123"
+}
+
+### Get All Movies
+GET {{baseUrl}}/movies
+Authorization: Bearer {{userToken}}
+
+### Search Movies
+GET {{baseUrl}}/search?query=diversion
+Authorization: Bearer {{userToken}}
+
+### Get Movie by ID
+GET {{baseUrl}}/movies/3
+Authorization: Bearer {{userToken}}
+
+### Create Movie
+POST {{baseUrl}}/movies
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "title": "Invincible",
+  "director": "Angelina Jolie",
+  "genre": "Guerre",
+  "release_year": 2014,
+  "description": "Film autobiographique sur la vie de Louis Zamperini, un athlète olympique et héros de guerre américain."
+}
+
+### Update Movie
+PUT {{baseUrl}}/movies/2
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "title": "Inception (Updated)",
+  "director": "Christopher Nolan",
+  "genre": "Sci-Fi",
+  "release_year": 2010,
+  "description": "Updated description2"
+}
+
+### Delete Movie
+DELETE {{baseUrl}}/movies/1
+Authorization: Bearer {{userToken}}
+
+### Bulk Delete Movies
+DELETE {{baseUrl}}/movies
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+[
+  {
+    "id": 3
+  },
+  {
+    "id": 4
+  }
+]
+
+### Bulk Update Movies
+PUT {{baseUrl}}/movies/bulk
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+[
+  {
+    "id": 3,
+    "title": "Movie 1 Updated",
+    "director": "Director 1",
+    "genre": "Action",
+    "release_year": 2020,
+    "description": "Description 1"
+  },
+  {
+    "id": 4,
+    "title": "Movie 2 Updated",
+    "director": "Director 2",
+    "genre": "Comedy",
+    "release_year": 2021,
+    "description": "Description 2"
+  }
+]
+
+### Update My Profile
+PUT {{baseUrl}}/user/me
+Authorization: Bearer {{userToken}}
+Content-Type: application/json
+
+{
+  "name": "Updated Name",
+  "email": "newemail@example.com",
+  "password": "newpassword123"
+}
+
+### Admin Update User
+PUT {{baseUrl}}/user/1
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "name": "Admin Updated User",
+  "email": "updated@example.com",
+  "password": "newpass123"
+}
+
+### Protected Route
+GET {{baseUrl}}/protected
+Authorization: Bearer {{userToken}}
+
+### Reset Database (Admin Only)
+DELETE {{baseUrl}}/reset
+Authorization: Bearer {{adminToken}}
+
+### Swagger Documentation
+GET {{baseUrl}}/swagger/index.html
