@@ -22,6 +22,7 @@ func parseID(id string) uint {
 // @Tags         movies
 // @Produce      json
 // @Security     BearerAuth
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur ou admin): Bearer <token>"
 // @Success      200  {array}   models.Movie
 // @Failure      500  {object}  map[string]string
 // @Router       /movies [get]
@@ -44,6 +45,7 @@ func GetMovies(c *gin.Context) {
 // @Produce      json
 // @Security     BearerAuth
 // @Param        id   path      string  true  "Movie ID"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur ou admin): Bearer <token>"
 // @Success      200  {object}  models.Movie
 // @Failure      404  {object}  map[string]string
 // @Router       /movies/{id} [get]
@@ -66,6 +68,7 @@ func GetMovie(c *gin.Context) {
 // @Produce      json
 // @Security     BearerAuth
 // @Param        movie  body      models.Movie  true  "Film à créer"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur ou admin): Bearer <token>"
 // @Success      201  {object}  map[string]string
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
@@ -95,6 +98,7 @@ func CreateMovie(c *gin.Context) {
 // @Security     BearerAuth
 // @Param        id     path      string        true  "Movie ID"
 // @Param        movie  body      models.Movie  true  "Film mis à jour"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur ou admin): Bearer <token>"
 // @Success      200  {object}  map[string]string
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
@@ -127,6 +131,7 @@ func UpdateMovie(c *gin.Context) {
 // @Produce      json
 // @Security     BearerAuth
 // @Param        id   path      string  true  "Movie ID"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur ou admin): Bearer <token>"
 // @Success      200  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
 // @Router       /movies/{id} [delete]
@@ -179,6 +184,7 @@ func SearchMovies(c *gin.Context) {
 // @Produce      json
 // @Security     BearerAuth
 // @Param        ids  body      []object  true  "Liste d'IDs ex: [{\"id\":1},{\"id\":2}]"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur ou admin): Bearer <token>"
 // @Success      200  {object}  map[string]string
 // @Failure      400  {object}  map[string]string
 // @Failure      500  {object}  map[string]string
@@ -215,6 +221,7 @@ func BulkDeleteMovies(c *gin.Context) {
 // @Produce      json
 // @Security     BearerAuth
 // @Param        movies  body      []models.Movie  true  "Liste de films avec ID"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur ou admin): Bearer <token>"
 // @Success      200     {object}  map[string]string
 // @Failure      400     {object}  map[string]string
 // @Failure      500     {object}  map[string]string

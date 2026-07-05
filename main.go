@@ -1,5 +1,28 @@
 package main
 
+// @title Movie Catalog API
+// @version 1.0
+// @description API REST pour gerer un catalogue de films avec authentification JWT
+// @termsOfService http://swagger.io/terms/
+//
+// @contact.name API Support
+// @contact.email support@example.com
+//
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+//
+// @host localhost:8080
+// @BasePath /
+// @schemes http
+//
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Saisir le token JWT au format: Bearer <token>
+//
+// @externalDocs.description OpenAPI
+// @externalDocs.url https://swagger.io
+
 import (
 	"biblio_go/database"
 	"biblio_go/handlers"

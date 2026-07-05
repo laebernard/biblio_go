@@ -168,6 +168,7 @@ type UpdateMeInput struct {
 // @Produce      json
 // @Security     BearerAuth
 // @Param        input  body      UpdateMeInput  true  "Nouvelles données"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur): Bearer <token>"
 // @Success      200  {object}  map[string]string
 // @Failure      400  {object}  map[string]string
 // @Failure      401  {object}  map[string]string
@@ -216,6 +217,21 @@ func UpdateMe(c *gin.Context) {
 	})
 }
 
+// UpdateUserByAdmin godoc
+// @Summary      Met a jour un utilisateur (admin uniquement)
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      string         true  "User ID"
+// @Param        input  body      UpdateMeInput  true  "Donnees utilisateur"
+// @Param        Authorization  header    string  true  "Bearer token admin: Bearer <token>"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Failure      403  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /user/{id} [put]
 func UpdateUserByAdmin(c *gin.Context) {
 	isAdmin, _ := c.Get("isAdmin")
 	if !isAdmin.(bool) {
@@ -272,6 +288,16 @@ func UpdateUserByAdmin(c *gin.Context) {
 	})
 }
 
+// ResetDatabase godoc
+// @Summary      Reinitialise la base de donnees (admin uniquement)
+// @Tags         auth
+// @Produce      json
+// @Security     BearerAuth
+// @Param        Authorization  header    string  true  "Bearer token admin: Bearer <token>"
+// @Success      200  {object}  map[string]string
+// @Failure      403  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /reset [delete]
 func ResetDatabase(c *gin.Context) {
 	isAdmin, _ := c.Get("isAdmin")
 
