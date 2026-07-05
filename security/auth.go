@@ -1,8 +1,11 @@
-package main
+package security
 
 import (
 	"net/http"
 	"time"
+
+	"biblio_go/database"
+	"biblio_go/logger"
 
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
@@ -23,17 +26,29 @@ type RegisterInput struct {
 	Password string `json:"password"`
 }
 
+// Register godoc
+// @Summary      Inscription d'un nouvel utilisateur
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Param        input  body      RegisterInput  true  "Données d'inscription"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Router       /user/register [post]
 func Register(c *gin.Context) {
 	var input RegisterInput
 
 	if err := c.ShouldBindJSON(&input); err != nil {
+		logger.Error("Register - Invalid input: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
 
+	logger.Info("Register - New registration attempt for email: %s", input.Email)
+
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 
-	res, err := DB.Exec(
+	res, err := database.DB.Exec(
 		"INSERT INTO users (name, email, password, isAdmin) VALUES (?, ?, ?, ?)",
 		input.Name,
 		input.Email,
@@ -42,6 +57,7 @@ func Register(c *gin.Context) {
 	)
 
 	if err != nil {
+		logger.Error("Register - Email already exists: %s", input.Email)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Email already exists"})
 		return
 	}
@@ -62,6 +78,8 @@ func Register(c *gin.Context) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, _ := token.SignedString(jwtKey)
 
+	logger.Info("Register - User registered successfully: %s (ID: %d)", input.Email, userID)
+
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
 	})
@@ -72,24 +90,38 @@ type LoginInput struct {
 	Password string `json:"password"`
 }
 
+// Login godoc
+// @Summary      Connexion utilisateur
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Param        input  body      LoginInput  true  "Email et mot de passe"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Failure      401  {object}  map[string]string
+// @Router       /user/login [post]
 func Login(c *gin.Context) {
 	var input LoginInput
 
 	if err := c.ShouldBindJSON(&input); err != nil {
+		logger.Error("Login - Invalid input: %v", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
+
+	logger.Info("Login - Login attempt for email: %s", input.Email)
 
 	var id int
 	var hashedPassword string
 	var isAdmin bool
 
-	err := DB.QueryRow(
+	err := database.DB.QueryRow(
 		"SELECT id, password, isAdmin FROM users WHERE email = ?",
 		input.Email,
 	).Scan(&id, &hashedPassword, &isAdmin)
 
 	if err != nil {
+		logger.Error("Login - Invalid credentials for email: %s", input.Email)
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 		return
 	}
@@ -97,6 +129,7 @@ func Login(c *gin.Context) {
 	// Vérifier le mot de passe
 	err = bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(input.Password))
 	if err != nil {
+		logger.Error("Login - Invalid password for email: %s", input.Email)
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid credentials"})
 		return
 	}
@@ -115,6 +148,8 @@ func Login(c *gin.Context) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	tokenString, _ := token.SignedString(jwtKey)
 
+	logger.Info("Login - User logged in successfully: %s", input.Email)
+
 	c.JSON(http.StatusOK, gin.H{
 		"token": tokenString,
 	})
@@ -126,6 +161,18 @@ type UpdateMeInput struct {
 	Password string `json:"password"`
 }
 
+// UpdateMe godoc
+// @Summary      Met à jour son propre profil
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        input  body      UpdateMeInput  true  "Nouvelles données"
+// @Param        Authorization  header    string  true  "Bearer token (utilisateur): Bearer <token>"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Failure      401  {object}  map[string]string
+// @Router       /user/me [put]
 func UpdateMe(c *gin.Context) {
 	userID, exists := c.Get("userID")
 	if !exists {
@@ -159,7 +206,7 @@ func UpdateMe(c *gin.Context) {
 	query += " WHERE id = ?"
 	args = append(args, userID)
 
-	_, err := DB.Exec(query, args...)
+	_, err := database.DB.Exec(query, args...)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update failed"})
 		return
@@ -170,6 +217,21 @@ func UpdateMe(c *gin.Context) {
 	})
 }
 
+// UpdateUserByAdmin godoc
+// @Summary      Met a jour un utilisateur (admin uniquement)
+// @Tags         auth
+// @Accept       json
+// @Produce      json
+// @Security     BearerAuth
+// @Param        id   path      string         true  "User ID"
+// @Param        input  body      UpdateMeInput  true  "Donnees utilisateur"
+// @Param        Authorization  header    string  true  "Bearer token admin: Bearer <token>"
+// @Success      200  {object}  map[string]string
+// @Failure      400  {object}  map[string]string
+// @Failure      403  {object}  map[string]string
+// @Failure      404  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /user/{id} [put]
 func UpdateUserByAdmin(c *gin.Context) {
 	isAdmin, _ := c.Get("isAdmin")
 	if !isAdmin.(bool) {
@@ -180,7 +242,7 @@ func UpdateUserByAdmin(c *gin.Context) {
 	id := c.Param("id")
 
 	var targetIsAdmin bool
-	err := DB.QueryRow("SELECT isAdmin FROM users WHERE id = ?", id).Scan(&targetIsAdmin)
+	err := database.DB.QueryRow("SELECT isAdmin FROM users WHERE id = ?", id).Scan(&targetIsAdmin)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
@@ -215,7 +277,7 @@ func UpdateUserByAdmin(c *gin.Context) {
 	query += " WHERE id = ?"
 	args = append(args, id)
 
-	_, err = DB.Exec(query, args...)
+	_, err = database.DB.Exec(query, args...)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Update failed"})
 		return
@@ -226,6 +288,16 @@ func UpdateUserByAdmin(c *gin.Context) {
 	})
 }
 
+// ResetDatabase godoc
+// @Summary      Reinitialise la base de donnees (admin uniquement)
+// @Tags         auth
+// @Produce      json
+// @Security     BearerAuth
+// @Param        Authorization  header    string  true  "Bearer token admin: Bearer <token>"
+// @Success      200  {object}  map[string]string
+// @Failure      403  {object}  map[string]string
+// @Failure      500  {object}  map[string]string
+// @Router       /reset [delete]
 func ResetDatabase(c *gin.Context) {
 	isAdmin, _ := c.Get("isAdmin")
 
@@ -234,7 +306,7 @@ func ResetDatabase(c *gin.Context) {
 		return
 	}
 
-	err := ResetDB()
+	err := database.ResetDB()
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Reset failed"})
 		return
