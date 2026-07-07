@@ -140,3 +140,33 @@
 [INFO] 2026/07/04 13:44:37 [2026-07-04 13:44:37] DELETE /movies - Bulk deleted 2 movies
 [INFO] 2026/07/04 13:44:45 [2026-07-04 13:44:45] GET /movies - Fetching all movies
 [INFO] 2026/07/04 13:44:45 [2026-07-04 13:44:45] GET /movies - Successfully fetched 0 movies
+[INFO] 2026/07/07 21:12:15 [2026-07-07 21:12:15] Login - Login attempt for email: laetitia.bernard@pilliot.fr
+[INFO] 2026/07/07 21:12:54 [2026-07-07 21:12:54] Login - Login attempt for email: test@example.com
+[INFO] 2026/07/07 21:13:22 [2026-07-07 21:13:22] Register - New registration attempt for email: test@mail.com
+[INFO] 2026/07/07 21:13:22 [2026-07-07 21:13:22] Register - User registered successfully: test@mail.com (ID: 8)
+[INFO] 2026/07/07 21:13:45 [2026-07-07 21:13:45] Login - Login attempt for email: test@mail.com
+[INFO] 2026/07/07 21:13:46 [2026-07-07 21:13:46] Login - User logged in successfully: test@mail.com
+[INFO] 2026/07/07 21:13:46 [2026-07-07 21:13:46] GET /movies - Fetching all movies
+[INFO] 2026/07/07 21:13:46 [2026-07-07 21:13:46] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/07 21:18:01 [2026-07-07 21:18:01] Login - Login attempt for email: test@mail.com
+[INFO] 2026/07/07 21:18:01 [2026-07-07 21:18:01] Login - User logged in successfully: test@mail.com
+[INFO] 2026/07/07 21:18:09 [2026-07-07 21:18:09] GET /movies - Fetching all movies
+[INFO] 2026/07/07 21:18:09 [2026-07-07 21:18:09] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/07 21:18:32 [2026-07-07 21:18:32] Login - Login attempt for email: test@mail.com
+[INFO] 2026/07/07 21:18:32 [2026-07-07 21:18:32] Login - User logged in successfully: test@mail.com
+[INFO] 2026/07/07 21:24:56 [2026-07-07 21:24:56] Login - Login attempt for email: test@mail.com
+[INFO] 2026/07/07 21:24:56 [2026-07-07 21:24:56] Login - User logged in successfully: test@mail.com
+[INFO] 2026/07/07 21:25:03 [2026-07-07 21:25:03] GET /search - Searching movies with query: fiction
+[INFO] 2026/07/07 21:25:03 [2026-07-07 21:25:03] GET /search - Found 0 movies
+[INFO] 2026/07/07 21:25:05 [2026-07-07 21:25:05] GET /search - Searching movies with query: fiction
+[INFO] 2026/07/07 21:25:05 [2026-07-07 21:25:05] GET /search - Found 0 movies
+[INFO] 2026/07/07 21:25:12 [2026-07-07 21:25:12] GET /search - Searching movies with query: fiction11
+[INFO] 2026/07/07 21:25:12 [2026-07-07 21:25:12] GET /search - Found 0 movies
+[INFO] 2026/07/07 21:25:26 [2026-07-07 21:25:26] Login - Login attempt for email: test@mail.com
+[INFO] 2026/07/07 21:25:26 [2026-07-07 21:25:26] Login - User logged in successfully: test@mail.com
+[INFO] 2026/07/07 21:33:26 [2026-07-07 21:33:26] Login - Login attempt for email: test@mail.com
+[INFO] 2026/07/07 21:33:26 [2026-07-07 21:33:26] Login - User logged in successfully: test@mail.com
+[INFO] 2026/07/07 21:33:32 [2026-07-07 21:33:32] GET /search - Searching movies with query: filtre
+[INFO] 2026/07/07 21:33:32 [2026-07-07 21:33:32] GET /search - Found 0 movies
+[INFO] 2026/07/07 21:36:32 [2026-07-07 21:36:32] Login - Login attempt for email: test@mail.com
+[INFO] 2026/07/07 21:36:32 [2026-07-07 21:36:32] Login - User logged in successfully: test@mail.com

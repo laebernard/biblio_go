@@ -18,10 +18,13 @@ import (
 func main() {
 	database.InitDB()
 
+	// Render fournit automatiquement l’URL via SWAGGER_HOST si tu la définis
 	host := os.Getenv("SWAGGER_HOST")
 	if host == "" {
+		// En local
 		host = "localhost:8080"
 	}
+
 	docs.SwaggerInfo.Host = host
 	docs.SwaggerInfo.Schemes = []string{"https", "http"}
 
@@ -61,5 +64,11 @@ func main() {
 		auth.DELETE("/reset", security.ResetDatabase)
 	}
 
-	r.Run(":8080")
+	// Render impose d’utiliser le port fourni par l’environnement
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // fallback local
+	}
+
+	r.Run(":" + port)
 }
