@@ -11,9 +11,7 @@ package main
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host https://biblio-go-jo8w.onrender.com
 // @BasePath /
-// @schemes http
 
 // @securityDefinitions.apikey BearerAuth
 // @in header

@@ -1,4 +1,4 @@
-@baseUrl = http://localhost:8080
+@baseUrl = {{baseUrl}}
 @adminToken =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjEsIklzQWRtaW4iOnRydWUsImV4cCI6MTc4MzI1MTA3Nn0.cPZNy7aj1EzCVTdBG0xQLRiVp1BovXfAK6mJvfu5-Ak
 
 @userToken =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOjgsIklzQWRtaW4iOmZhbHNlLCJleHAiOjE3ODMyNTA0Njd9.D5AWvJt6_1RL8K0j-q2DAl1IHpgfeBlHOBY-y0zl3oo
