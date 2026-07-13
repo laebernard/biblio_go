@@ -26,7 +26,8 @@ func renderMoviesView(movies []Movie, status string) string {
 		}
 	}
 
-	b.WriteString(fmt.Sprintf("\n%s\n\n[q] pour quitter\n", status))
+	b.WriteString(fmt.Sprintf("\n%s\n\n[ctrl+c] pour quitter\n", status))
+	b.WriteString(fmt.Sprintf("\n%s\n\n[esc] Retour au menu depuis n'importe où\n", status))
 
 	return b.String()
 }

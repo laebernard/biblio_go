@@ -170,3 +170,32 @@
 [INFO] 2026/07/07 21:33:32 [2026-07-07 21:33:32] GET /search - Found 0 movies
 [INFO] 2026/07/07 21:36:32 [2026-07-07 21:36:32] Login - Login attempt for email: test@mail.com
 [INFO] 2026/07/07 21:36:32 [2026-07-07 21:36:32] Login - User logged in successfully: test@mail.com
+[INFO] 2026/07/13 23:40:15 [2026-07-13 23:40:15] Register - New registration attempt for email: laetitia.bernard@mail.com
+[INFO] 2026/07/13 23:40:15 [2026-07-13 23:40:15] Register - User registered successfully: laetitia.bernard@mail.com (ID: 10)
+[INFO] 2026/07/13 23:47:00 [2026-07-13 23:47:00] Register - New registration attempt for email: laetitia.bernard@gmail.com
+[INFO] 2026/07/13 23:47:00 [2026-07-13 23:47:00] Register - User registered successfully: laetitia.bernard@gmail.com (ID: 11)
+[INFO] 2026/07/13 23:47:14 [2026-07-13 23:47:14] GET /movies - Fetching all movies
+[INFO] 2026/07/13 23:47:14 [2026-07-13 23:47:14] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/13 23:50:03 [2026-07-13 23:50:03] Login - Login attempt for email: laetitia.bernard@gmail.com
+[INFO] 2026/07/13 23:50:03 [2026-07-13 23:50:03] Login - User logged in successfully: laetitia.bernard@gmail.com
+[INFO] 2026/07/13 23:50:07 [2026-07-13 23:50:07] GET /movies - Fetching all movies
+[INFO] 2026/07/13 23:50:07 [2026-07-13 23:50:07] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/13 23:50:28 [2026-07-13 23:50:28] GET /movies - Fetching all movies
+[INFO] 2026/07/13 23:50:28 [2026-07-13 23:50:28] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/13 23:57:48 [2026-07-13 23:57:48] Login - Login attempt for email: laetitia.bernard@gmail.com
+[INFO] 2026/07/13 23:57:49 [2026-07-13 23:57:49] Login - User logged in successfully: laetitia.bernard@gmail.com
+[INFO] 2026/07/13 23:58:15 [2026-07-13 23:58:15] GET /movies - Fetching all movies
+[INFO] 2026/07/13 23:58:15 [2026-07-13 23:58:15] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/14 00:00:04 [2026-07-14 00:00:04] DELETE /movies/:id - Movie deleted successfully
+[INFO] 2026/07/14 00:00:07 [2026-07-14 00:00:07] GET /movies - Fetching all movies
+[INFO] 2026/07/14 00:00:07 [2026-07-14 00:00:07] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/14 00:00:55 [2026-07-14 00:00:55] GET /movies - Fetching all movies
+[INFO] 2026/07/14 00:00:55 [2026-07-14 00:00:55] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/14 00:01:07 [2026-07-14 00:01:07] DELETE /movies - Bulk deleted 3 movies
+[INFO] 2026/07/14 00:04:33 [2026-07-14 00:04:33] Login - Login attempt for email: laetitia.bernard@gmail.com
+[INFO] 2026/07/14 00:04:33 [2026-07-14 00:04:33] Login - User logged in successfully: laetitia.bernard@gmail.com
+[INFO] 2026/07/14 00:24:00 [2026-07-14 00:24:00] Register - New registration attempt for email: laetitia.bernard@gmail.com
+[INFO] 2026/07/14 00:24:18 [2026-07-14 00:24:18] Login - Login attempt for email: laetitia.bernard@gmail.com
+[INFO] 2026/07/14 00:24:18 [2026-07-14 00:24:18] Login - User logged in successfully: laetitia.bernard@gmail.com
+[INFO] 2026/07/14 00:34:58 [2026-07-14 00:34:58] Login - Login attempt for email: laetitia.bernard@gmail.com
+[INFO] 2026/07/14 00:34:59 [2026-07-14 00:34:59] Login - User logged in successfully: laetitia.bernard@gmail.com
