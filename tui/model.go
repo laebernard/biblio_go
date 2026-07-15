@@ -5,9 +5,14 @@ import (
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/charmbracelet/lipgloss"
 )
 
 type screen int
+
+var styleTitle lipgloss.Style
+var styleLabel lipgloss.Style
+var styleInput lipgloss.Style
 
 const (
 	screenLogin screen = iota
@@ -24,6 +29,7 @@ const (
 	screenUpdateOwnProfile
 	screenUpdateUserByAdmin
 	screenResetDB
+	screenSettings
 )
 
 type model struct {
@@ -64,6 +70,11 @@ type model struct {
 	registerFieldIndex   int
 	profileFieldIndex    int
 	adminUserFieldIndex  int
+
+	settingsThemeInput  textinput.Model
+	settingsAPIInput    textinput.Model
+	settingsAccentInput textinput.Model
+	settingsFieldIndex  int
 }
 
 func initialModel() model {
@@ -134,6 +145,21 @@ func initialModel() model {
 	adminUserPass.Placeholder = "Nouveau mot de passe"
 	adminUserPass.EchoMode = textinput.EchoPassword
 
+	settingsTheme := textinput.New()
+	settingsTheme.Placeholder = "light / dark"
+	settingsTheme.SetValue(AppConfig.Theme)
+
+	settingsAPI := textinput.New()
+	settingsAPI.Placeholder = "API URL"
+	settingsAPI.SetValue(AppConfig.APIURL)
+
+	settingsAccent := textinput.New()
+	settingsAccent.Placeholder = "#FF00FF"
+	settingsAccent.SetValue(AppConfig.Accent)
+
+	applyTheme()
+	applyAccent()
+
 	return model{
 		screen:               screenLogin,
 		emailInput:           email,
@@ -166,6 +192,10 @@ func initialModel() model {
 		registerFieldIndex:   0,
 		profileFieldIndex:    0,
 		adminUserFieldIndex:  0,
+		settingsThemeInput:   settingsTheme,
+		settingsAPIInput:     settingsAPI,
+		settingsAccentInput:  settingsAccent,
+		settingsFieldIndex:   0,
 	}
 }
 
@@ -275,6 +305,14 @@ func (m *model) adminUserFields() []*textinput.Model {
 		&m.adminUserNameInput,
 		&m.adminUserEmailInput,
 		&m.adminUserPassInput,
+	}
+}
+
+func (m *model) settingsFields() []*textinput.Model {
+	return []*textinput.Model{
+		&m.settingsThemeInput,
+		&m.settingsAPIInput,
+		&m.settingsAccentInput,
 	}
 }
 
@@ -556,6 +594,45 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		}
 
+		if m.screen == screenSettings {
+			fields := m.settingsFields()
+
+			switch msg.String() {
+
+			case "tab":
+				fields[m.settingsFieldIndex].Blur()
+				m.settingsFieldIndex = (m.settingsFieldIndex + 1) % len(fields)
+				fields[m.settingsFieldIndex].Focus()
+				return m, nil
+
+			case "shift+tab":
+				fields[m.settingsFieldIndex].Blur()
+				m.settingsFieldIndex--
+				if m.settingsFieldIndex < 0 {
+					m.settingsFieldIndex = len(fields) - 1
+				}
+				fields[m.settingsFieldIndex].Focus()
+				return m, nil
+
+			case "enter":
+				AppConfig.Theme = m.settingsThemeInput.Value()
+				AppConfig.APIURL = m.settingsAPIInput.Value()
+				AppConfig.Accent = m.settingsAccentInput.Value()
+
+				SaveConfig(AppConfig)
+
+				applyTheme()
+
+				applyAccent()
+
+				API_URL = AppConfig.APIURL
+
+				m.status = "Paramètres enregistrés"
+				m.screen = screenMenu
+				return m, nil
+			}
+		}
+
 		if m.screen == screenMenu {
 			switch msg.String() {
 			case "1":
@@ -669,6 +746,16 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.status = "Réinitialiser la base"
 				m.screen = screenResetDB
 				return m, nil
+
+			case "f4":
+				m.status = "Paramètres de l'application"
+				m.screen = screenSettings
+				m.settingsFieldIndex = 0
+
+				fields := m.settingsFields()
+				fields[0].Focus()
+				return m, nil
+
 			}
 		}
 
@@ -858,6 +945,15 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		*fields[m.adminUserFieldIndex], cmd = fields[m.adminUserFieldIndex].Update(msg)
 		cmds = append(cmds, cmd)
 		return m, tea.Batch(cmds...)
+
+	case screenSettings:
+		var cmds []tea.Cmd
+		var cmd tea.Cmd
+		fields := m.settingsFields()
+		*fields[m.settingsFieldIndex], cmd = fields[m.settingsFieldIndex].Update(msg)
+		cmds = append(cmds, cmd)
+		return m, tea.Batch(cmds...)
+
 	}
 
 	return m, nil
@@ -888,6 +984,7 @@ func (m model) View() string {
 				"9. Mettre à jour votre profil\n"+
 				"10. Mettre à jour un utilisateur (admin)\n"+
 				"11. Réinitialiser la BDD\n"+
+				"f4. Paramètres\n"+
 				"ctrl+c. Quitter\n\n"+
 				"[esc] Retour au menu depuis n'importe où\n\n"+
 				"%s\n",
@@ -993,7 +1090,41 @@ func (m model) View() string {
 			"Réinitialisation de la base\n\n[enter] pour confirmer la réinitialisation\n[esc] Menu\n\n%s\n",
 			m.status,
 		)
+
+	case screenSettings:
+		fields := m.settingsFields()
+		return fmt.Sprintf(
+			styleTitle.Render("=== Paramètres ===")+"\n\n"+
+				styleLabel.Render("Thème (light/dark):")+"\n%s\n\n"+
+				styleLabel.Render("API URL:")+"\n%s\n\n"+
+				styleLabel.Render("Couleur d'accent:")+"\n%s\n\n"+
+				"[tab] champ suivant, [shift+tab] champ précédent\n"+
+				"[enter] pour enregistrer\n[esc] Menu\n\n%s\n",
+			fields[0].View(),
+			fields[1].View(),
+			fields[2].View(),
+			m.status,
+		)
+
 	}
 
 	return "Écran inconnu"
+}
+
+var AccentColor = "#FF00FF"
+
+func applyTheme() {
+	if AppConfig.Theme == "dark" {
+		styleTitle = lipgloss.NewStyle().Foreground(lipgloss.Color(AccentColor)).Bold(true)
+		styleLabel = lipgloss.NewStyle().Foreground(lipgloss.Color("#CCCCCC"))
+		styleInput = lipgloss.NewStyle().Foreground(lipgloss.Color("#FFFFFF"))
+	} else {
+		styleTitle = lipgloss.NewStyle().Foreground(lipgloss.Color(AccentColor)).Bold(true)
+		styleLabel = lipgloss.NewStyle().Foreground(lipgloss.Color("#333333"))
+		styleInput = lipgloss.NewStyle().Foreground(lipgloss.Color("#000000"))
+	}
+}
+
+func applyAccent() {
+	AccentColor = AppConfig.Accent
 }
