@@ -64,6 +64,15 @@ func main() {
 		auth.DELETE("/reset", security.ResetDatabase)
 	}
 
+	backup := r.Group("/backup")
+	backup.Use(security.AuthMiddleware())
+	{
+		backup.GET("/config", handlers.BackupConfig)
+		backup.POST("/config", handlers.RestoreConfig)
+		backup.GET("/state", handlers.BackupState)
+		backup.POST("/state", handlers.RestoreState)
+	}
+
 	// Render impose d’utiliser le port fourni par l’environnement
 	port := os.Getenv("PORT")
 	if port == "" {

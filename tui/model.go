@@ -1,7 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
+	"io"
+	"net/http"
+	"os"
 
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
@@ -13,6 +17,12 @@ type screen int
 var styleTitle lipgloss.Style
 var styleLabel lipgloss.Style
 var styleInput lipgloss.Style
+
+type errorMsg struct {
+	err error
+}
+
+type statusMsg string
 
 const (
 	screenLogin screen = iota
@@ -322,6 +332,14 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+
+	case errorMsg:
+		m.status = msg.err.Error()
+		return m, nil
+
+	case statusMsg:
+		m.status = string(msg)
+		return m, nil
 
 	case tea.KeyMsg:
 		switch msg.String() {
@@ -756,6 +774,18 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				fields[0].Focus()
 				return m, nil
 
+			case "f7":
+				return m, exportConfigCmd(m.token)
+
+			case "f8":
+				return m, importConfigCmd(m.token)
+
+			case "f9":
+				return m, exportStateCmd(m.token)
+
+			case "f10":
+				return m, importStateCmd(m.token)
+
 			}
 		}
 
@@ -985,6 +1015,11 @@ func (m model) View() string {
 				"10. Mettre à jour un utilisateur (admin)\n"+
 				"11. Réinitialiser la BDD\n"+
 				"f4. Paramètres\n"+
+				"f7. Export Config\n"+
+				"f8. Import Config\n"+
+				"f9. Export Etat\n"+
+				"f10. Import Etat\n"+
+
 				"ctrl+c. Quitter\n\n"+
 				"[esc] Retour au menu depuis n'importe où\n\n"+
 				"%s\n",
@@ -1127,4 +1162,96 @@ func applyTheme() {
 
 func applyAccent() {
 	AccentColor = AppConfig.Accent
+}
+
+// =========================
+// EXPORT CONFIG
+// =========================
+func exportConfigCmd(token string) tea.Cmd {
+	return func() tea.Msg {
+		data, err := os.ReadFile("config/config.json")
+		if err != nil {
+			return errorMsg{err}
+		}
+
+		req, _ := http.NewRequest("POST", API_URL+"/backup/config", bytes.NewBuffer(data))
+		req.Header.Set("Authorization", "Bearer "+token)
+		req.Header.Set("Content-Type", "application/json")
+
+		_, err = http.DefaultClient.Do(req)
+		if err != nil {
+			return errorMsg{err}
+		}
+
+		return statusMsg("Configuration exportée vers le serveur")
+	}
+}
+
+// =========================
+// IMPORT CONFIG
+// =========================
+func importConfigCmd(token string) tea.Cmd {
+	return func() tea.Msg {
+		req, _ := http.NewRequest("GET", API_URL+"/backup/config", nil)
+		req.Header.Set("Authorization", "Bearer "+token)
+
+		res, err := http.DefaultClient.Do(req)
+		if err != nil {
+			return errorMsg{err}
+		}
+		defer res.Body.Close()
+
+		data, _ := io.ReadAll(res.Body)
+		os.WriteFile("config/config.json", data, 0644)
+
+		LoadConfig()
+		applyTheme()
+		applyAccent()
+
+		return statusMsg("Configuration importée depuis le serveur")
+	}
+}
+
+// =========================
+// EXPORT STATE
+// =========================
+func exportStateCmd(token string) tea.Cmd {
+	return func() tea.Msg {
+		data, err := os.ReadFile("config/state.json")
+		if err != nil {
+			return errorMsg{err}
+		}
+
+		req, _ := http.NewRequest("POST", API_URL+"/backup/state", bytes.NewBuffer(data))
+		req.Header.Set("Authorization", "Bearer "+token)
+		req.Header.Set("Content-Type", "application/json")
+
+		_, err = http.DefaultClient.Do(req)
+		if err != nil {
+			return errorMsg{err}
+		}
+
+		return statusMsg("État exporté vers le serveur")
+	}
+}
+
+// =========================
+// IMPORT STATE
+// =========================
+func importStateCmd(token string) tea.Cmd {
+	return func() tea.Msg {
+		req, _ := http.NewRequest("GET", API_URL+"/backup/state", nil)
+		req.Header.Set("Authorization", "Bearer "+token)
+
+		res, err := http.DefaultClient.Do(req)
+		if err != nil {
+			return errorMsg{err}
+		}
+		defer res.Body.Close()
+
+		data, _ := io.ReadAll(res.Body)
+		os.WriteFile("config/state.json", data, 0644)
+
+		return statusMsg("État importé depuis le serveur")
+	}
 }
