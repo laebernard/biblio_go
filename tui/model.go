@@ -395,6 +395,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.screen == screenSearch {
 				query := m.searchInput.Value()
 				m.status = "Recherche..."
+				m.screen = screenMovies
+				m.movies = nil
 				return m, searchMoviesCmd(m.token, query)
 			}
 
@@ -805,7 +807,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		}
 		m.movies = msg.movies
-		m.status = fmt.Sprintf("Films chargés (%d)", len(m.movies))
+		if m.screen == screenSearch {
+			m.status = fmt.Sprintf("Films trouvés (%d)", len(m.movies))
+		} else {
+			m.status = fmt.Sprintf("Films chargés (%d)", len(m.movies))
+		}
+		m.screen = screenMovies
 		return m, nil
 
 	case movieMsg:

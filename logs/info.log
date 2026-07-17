@@ -211,3 +211,51 @@
 [INFO] 2026/07/17 23:47:59 [2026-07-17 23:47:59] GET /movies - Successfully fetched 2 movies
 [INFO] 2026/07/17 23:48:17 [2026-07-17 23:48:17] GET /movies - Fetching all movies
 [INFO] 2026/07/17 23:48:17 [2026-07-17 23:48:17] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:09:28 [2026-07-18 00:09:28] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/18 00:09:28 [2026-07-18 00:09:28] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/18 00:09:34 [2026-07-18 00:09:34] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:09:34 [2026-07-18 00:09:34] GET /movies - Successfully fetched 3 movies
+[INFO] 2026/07/18 00:10:05 [2026-07-18 00:10:05] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:10:05 [2026-07-18 00:10:05] GET /movies - Successfully fetched 3 movies
+[INFO] 2026/07/18 00:10:59 [2026-07-18 00:10:59] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:10:59 [2026-07-18 00:10:59] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:15:20 [2026-07-18 00:15:20] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/18 00:15:20 [2026-07-18 00:15:20] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/18 00:15:25 [2026-07-18 00:15:25] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:15:25 [2026-07-18 00:15:25] GET /movies - Successfully fetched 3 movies
+[INFO] 2026/07/18 00:15:55 [2026-07-18 00:15:55] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:15:55 [2026-07-18 00:15:55] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:15:57 [2026-07-18 00:15:57] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:15:57 [2026-07-18 00:15:57] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:15:57 [2026-07-18 00:15:57] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:15:57 [2026-07-18 00:15:57] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:02 [2026-07-18 00:16:02] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:02 [2026-07-18 00:16:02] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:03 [2026-07-18 00:16:03] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:03 [2026-07-18 00:16:03] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:03 [2026-07-18 00:16:03] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:03 [2026-07-18 00:16:03] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:04 [2026-07-18 00:16:04] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:08 [2026-07-18 00:16:08] GET /search - Searching movies with query: invincible*ù
+[INFO] 2026/07/18 00:16:08 [2026-07-18 00:16:08] GET /search - Found 0 movies
+[INFO] 2026/07/18 00:16:09 [2026-07-18 00:16:09] GET /search - Searching movies with query: invincible*ù
+[INFO] 2026/07/18 00:16:09 [2026-07-18 00:16:09] GET /search - Found 0 movies
+[INFO] 2026/07/18 00:16:13 [2026-07-18 00:16:13] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:13 [2026-07-18 00:16:13] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Found 1 movies
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Searching movies with query: invincible
+[INFO] 2026/07/18 00:16:14 [2026-07-18 00:16:14] GET /search - Found 1 movies
