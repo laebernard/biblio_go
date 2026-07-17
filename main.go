@@ -1,32 +1,46 @@
 package main
 
+// @title Movie Catalog API
+// @version 1.0
+// @description API REST pour gerer un catalogue de films avec authentification JWT
+// @termsOfService http://swagger.io/terms/
+//
+// @contact.name API Support
+// @contact.email support@example.com
+//
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+//
+// @host
+// @BasePath /
+// @schemes
+//
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Saisir le token JWT au format: ******
+//
+// @externalDocs.description OpenAPI
+// @externalDocs.url https://swagger.io
 import (
 	"os"
 
 	"biblio_go/database"
+	"biblio_go/docs"
 	"biblio_go/handlers"
 	"biblio_go/security"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-
-	_ "biblio_go/docs"
-	docs "biblio_go/docs"
 )
 
 func main() {
 	database.InitDB()
 
-	// Render fournit automatiquement l’URL via SWAGGER_HOST si tu la définis
-	host := os.Getenv("SWAGGER_HOST")
-	if host == "" {
-		// En local
-		host = "localhost:8080"
-	}
-
-	docs.SwaggerInfo.Host = host
-	docs.SwaggerInfo.Schemes = []string{"https", "http"}
+	// Keep Swagger host/scheme dynamic so production (Render HTTPS domain) works.
+	docs.SwaggerInfo.Host = ""
+	docs.SwaggerInfo.Schemes = []string{}
 
 	r := gin.Default()
 
