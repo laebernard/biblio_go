@@ -1089,7 +1089,7 @@ func (m model) View() string {
 
 	case screenBulkUpdate:
 		return fmt.Sprintf(
-			"Mise à jour en lot\n\nIDs: %s\nTitre: %s\nRéalisateur: %s\nGenre: %s\nAnnée: %s\nDescription: %s\n\n[tab] champ suivant, [shift+tab] champ précédent\n[enter] pour mettre à jour\n[esc] Menu\n\n%s\n",
+			"Mise à jour en lot\n\nIDs: %s\nTitre: %s\nRéalisateur: %s\nGenre: %s\nAnnée: %s\nDescription: %s\n\nLaissez un champ vide pour conserver sa valeur actuelle.\n\n[tab] champ suivant, [shift+tab] champ précédent\n[enter] pour mettre à jour\n[esc] Menu\n\n%s\n",
 			m.bulkUpdateIDsInput.View(),
 			m.titleInput.View(),
 			m.directorInput.View(),

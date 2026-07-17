@@ -18,7 +18,12 @@ func TestParseIDList(t *testing.T) {
 }
 
 func TestBuildBulkUpdateMovies(t *testing.T) {
-	movies, err := buildBulkUpdateMovies([]uint{1, 2}, "Titre", "Dir", "Genre", "1999", "Desc")
+	current := []Movie{
+		{ID: 1, Title: "Old1", Director: "OldDir1", Genre: "OldGenre1", ReleaseYear: 2001, Description: "OldDesc1"},
+		{ID: 2, Title: "Old2", Director: "OldDir2", Genre: "OldGenre2", ReleaseYear: 2002, Description: "OldDesc2"},
+	}
+
+	movies, err := buildBulkUpdateMovies(current, "Titre", "", "Genre", "1999", "")
 	if err != nil {
 		t.Fatalf("buildBulkUpdateMovies returned error: %v", err)
 	}
@@ -31,7 +36,7 @@ func TestBuildBulkUpdateMovies(t *testing.T) {
 		t.Fatalf("unexpected ids: %+v", movies)
 	}
 
-	if movies[0].Title != "Titre" || movies[0].Director != "Dir" || movies[0].Genre != "Genre" || movies[0].ReleaseYear != 1999 || movies[0].Description != "Desc" {
+	if movies[0].Title != "Titre" || movies[0].Director != "OldDir1" || movies[0].Genre != "Genre" || movies[0].ReleaseYear != 1999 || movies[0].Description != "OldDesc1" {
 		t.Fatalf("unexpected movie payload: %+v", movies[0])
 	}
 }
