@@ -7,3 +7,4 @@
 [ERROR] 2026/07/07 21:12:15 [2026-07-07 21:12:15] Login - Invalid credentials for email: laetitia.bernard@pilliot.fr
 [ERROR] 2026/07/07 21:12:54 [2026-07-07 21:12:54] Login - Invalid credentials for email: test@example.com
 [ERROR] 2026/07/14 00:24:01 [2026-07-14 00:24:01] Register - Email already exists: laetitia.bernard@gmail.com
+[ERROR] 2026/07/18 00:28:42 [2026-07-18 00:28:42] Login - Invalid password for email: admin@mail.com

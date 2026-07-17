@@ -285,3 +285,26 @@
 [INFO] 2026/07/18 00:24:18 [2026-07-18 00:24:18] PUT /movies/bulk - Bulk updated 2 movies
 [INFO] 2026/07/18 00:24:20 [2026-07-18 00:24:20] GET /movies - Fetching all movies
 [INFO] 2026/07/18 00:24:20 [2026-07-18 00:24:20] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:28:41 [2026-07-18 00:28:41] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/18 00:28:51 [2026-07-18 00:28:51] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/18 00:28:51 [2026-07-18 00:28:51] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/18 00:28:52 [2026-07-18 00:28:52] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:28:52 [2026-07-18 00:28:52] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:29:04 [2026-07-18 00:29:04] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:29:04 [2026-07-18 00:29:04] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:29:35 [2026-07-18 00:29:35] PUT /movies/bulk - Bulk updated 2 movies
+[INFO] 2026/07/18 00:29:36 [2026-07-18 00:29:36] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:29:36 [2026-07-18 00:29:36] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:29:44 [2026-07-18 00:29:44] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:29:44 [2026-07-18 00:29:44] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:30:04 [2026-07-18 00:30:04] PUT /movies/bulk - Bulk updated 2 movies
+[INFO] 2026/07/18 00:30:05 [2026-07-18 00:30:05] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:30:05 [2026-07-18 00:30:05] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:30:24 [2026-07-18 00:30:24] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/18 00:30:24 [2026-07-18 00:30:24] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/18 00:30:29 [2026-07-18 00:30:29] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:30:29 [2026-07-18 00:30:29] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:30:43 [2026-07-18 00:30:43] GET /movies - Fetching all movies
+[INFO] 2026/07/18 00:30:43 [2026-07-18 00:30:43] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/18 00:31:14 [2026-07-18 00:31:14] GET /search - Searching movies with query: pierre
+[INFO] 2026/07/18 00:31:14 [2026-07-18 00:31:14] GET /search - Found 2 movies

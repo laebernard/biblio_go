@@ -1,0 +1,5 @@
+{
+  "theme": "dark",
+  "accent": "#FF00FF",
+  "api_url": "http://localhost:8080"
+}
