@@ -199,3 +199,15 @@
 [INFO] 2026/07/14 00:24:18 [2026-07-14 00:24:18] Login - User logged in successfully: laetitia.bernard@gmail.com
 [INFO] 2026/07/14 00:34:58 [2026-07-14 00:34:58] Login - Login attempt for email: laetitia.bernard@gmail.com
 [INFO] 2026/07/14 00:34:59 [2026-07-14 00:34:59] Login - User logged in successfully: laetitia.bernard@gmail.com
+[INFO] 2026/07/17 23:45:46 [2026-07-17 23:45:46] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/17 23:45:46 [2026-07-17 23:45:46] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/17 23:46:06 [2026-07-17 23:46:06] GET /movies - Fetching all movies
+[INFO] 2026/07/17 23:46:06 [2026-07-17 23:46:06] GET /movies - Successfully fetched 1 movies
+[INFO] 2026/07/17 23:46:35 [2026-07-17 23:46:35] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/17 23:46:35 [2026-07-17 23:46:35] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/17 23:47:47 [2026-07-17 23:47:47] GET /movies - Fetching all movies
+[INFO] 2026/07/17 23:47:47 [2026-07-17 23:47:47] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/17 23:47:59 [2026-07-17 23:47:59] GET /movies - Fetching all movies
+[INFO] 2026/07/17 23:47:59 [2026-07-17 23:47:59] GET /movies - Successfully fetched 2 movies
+[INFO] 2026/07/17 23:48:17 [2026-07-17 23:48:17] GET /movies - Fetching all movies
+[INFO] 2026/07/17 23:48:17 [2026-07-17 23:48:17] GET /movies - Successfully fetched 2 movies

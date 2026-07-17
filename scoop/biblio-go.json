@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "description": "Biblio Go - interface terminale pour le catalogue de films",
+  "homepage": "https://github.com/<OWNER>/<REPO>",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/<OWNER>/<REPO>/releases/download/v0.1.0/biblio-go-windows-amd64.zip",
+      "hash": "REPLACE_WITH_SHA256",
+      "bin": [
+        "biblio-go.exe"
+      ]
+    }
+  },
+  "checkver": {
+    "github": "<OWNER>/<REPO>"
+  },
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/<OWNER>/<REPO>/releases/download/v$version/biblio-go-windows-amd64.zip"
+      }
+    }
+  }
+}
