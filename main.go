@@ -18,31 +18,25 @@ package main
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
-// @description Saisir le token JWT au format: Bearer <token>
+// @description Saisir le token JWT au format: ******
 //
 // @externalDocs.description OpenAPI
 // @externalDocs.url https://swagger.io
-
 import (
+	"os"
+
 	"biblio_go/database"
 	"biblio_go/docs"
 	"biblio_go/handlers"
 	"biblio_go/security"
-	"os"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-
 )
 
 func main() {
 	database.InitDB()
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
 
 	// Keep Swagger host/scheme dynamic so production (Render HTTPS domain) works.
 	docs.SwaggerInfo.Host = ""
@@ -50,7 +44,6 @@ func main() {
 
 	r := gin.Default()
 
-	// Swagger documentation
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 	r.GET("/", func(c *gin.Context) {
@@ -58,16 +51,12 @@ func main() {
 	})
 
 	r.POST("/user/register", security.Register)
-
 	r.POST("/user/login", security.Login)
-
 	r.GET("/search", handlers.SearchMovies)
 
-	// Routes protégées par authentification
 	auth := r.Group("/")
 	auth.Use(security.AuthMiddleware())
 	{
-		// Routes pour les films
 		auth.GET("/movies", handlers.GetMovies)
 		auth.GET("/movies/:id", handlers.GetMovie)
 		auth.POST("/movies", handlers.CreateMovie)
@@ -76,7 +65,6 @@ func main() {
 		auth.DELETE("/movies", handlers.BulkDeleteMovies)
 		auth.DELETE("/movies/:id", handlers.DeleteMovie)
 
-		// Routes utilisateur
 		auth.GET("/protected", func(c *gin.Context) {
 			userID, _ := c.Get("userID")
 			c.JSON(200, gin.H{
@@ -84,9 +72,25 @@ func main() {
 				"userID":  userID,
 			})
 		})
+
 		auth.PUT("/user/me", security.UpdateMe)
 		auth.PUT("/user/:id", security.UpdateUserByAdmin)
 		auth.DELETE("/reset", security.ResetDatabase)
+	}
+
+	backup := r.Group("/backup")
+	backup.Use(security.AuthMiddleware())
+	{
+		backup.GET("/config", handlers.BackupConfig)
+		backup.POST("/config", handlers.RestoreConfig)
+		backup.GET("/state", handlers.BackupState)
+		backup.POST("/state", handlers.RestoreState)
+	}
+
+	// Render impose d’utiliser le port fourni par l’environnement
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // fallback local
 	}
 
 	r.Run(":" + port)
