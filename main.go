@@ -11,9 +11,9 @@ package main
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 //
-// @host localhost:8080
+// @host
 // @BasePath /
-// @schemes http
+// @schemes
 //
 // @securityDefinitions.apikey BearerAuth
 // @in header
@@ -25,18 +25,28 @@ package main
 
 import (
 	"biblio_go/database"
+	"biblio_go/docs"
 	"biblio_go/handlers"
 	"biblio_go/security"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	_ "biblio_go/docs"
 )
 
 func main() {
 	database.InitDB()
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	// Keep Swagger host/scheme dynamic so production (Render HTTPS domain) works.
+	docs.SwaggerInfo.Host = ""
+	docs.SwaggerInfo.Schemes = []string{}
 
 	r := gin.Default()
 
@@ -79,5 +89,5 @@ func main() {
 		auth.DELETE("/reset", security.ResetDatabase)
 	}
 
-	r.Run(":8080")
+	r.Run(":" + port)
 }

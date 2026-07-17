@@ -140,3 +140,9 @@
 [INFO] 2026/07/04 13:44:37 [2026-07-04 13:44:37] DELETE /movies - Bulk deleted 2 movies
 [INFO] 2026/07/04 13:44:45 [2026-07-04 13:44:45] GET /movies - Fetching all movies
 [INFO] 2026/07/04 13:44:45 [2026-07-04 13:44:45] GET /movies - Successfully fetched 0 movies
+[INFO] 2026/07/05 17:40:28 [2026-07-05 17:40:28] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/05 17:40:28 [2026-07-05 17:40:28] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/05 17:41:19 [2026-07-05 17:41:19] Login - Login attempt for email: admin@mail.com
+[INFO] 2026/07/05 17:41:20 [2026-07-05 17:41:20] Login - User logged in successfully: admin@mail.com
+[INFO] 2026/07/05 17:57:07 [2026-07-05 17:57:07] Register - New registration attempt for email: lorena@hotmail.fr
+[INFO] 2026/07/05 17:57:08 [2026-07-05 17:57:08] Register - User registered successfully: lorena@hotmail.fr (ID: 6)
