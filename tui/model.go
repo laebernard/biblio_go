@@ -395,6 +395,8 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			if m.screen == screenSearch {
 				query := m.searchInput.Value()
 				m.status = "Recherche..."
+				m.screen = screenMovies
+				m.movies = nil
 				return m, searchMoviesCmd(m.token, query)
 			}
 
@@ -805,7 +807,12 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		}
 		m.movies = msg.movies
-		m.status = fmt.Sprintf("Films chargés (%d)", len(m.movies))
+		if m.screen == screenSearch {
+			m.status = fmt.Sprintf("Films trouvés (%d)", len(m.movies))
+		} else {
+			m.status = fmt.Sprintf("Films chargés (%d)", len(m.movies))
+		}
+		m.screen = screenMovies
 		return m, nil
 
 	case movieMsg:
@@ -1082,7 +1089,7 @@ func (m model) View() string {
 
 	case screenBulkUpdate:
 		return fmt.Sprintf(
-			"Mise à jour en lot\n\nIDs: %s\nTitre: %s\nRéalisateur: %s\nGenre: %s\nAnnée: %s\nDescription: %s\n\n[tab] champ suivant, [shift+tab] champ précédent\n[enter] pour mettre à jour\n[esc] Menu\n\n%s\n",
+			"Mise à jour en lot\n\nIDs: %s\nTitre: %s\nRéalisateur: %s\nGenre: %s\nAnnée: %s\nDescription: %s\n\nLaissez un champ vide pour conserver sa valeur actuelle.\n\n[tab] champ suivant, [shift+tab] champ précédent\n[enter] pour mettre à jour\n[esc] Menu\n\n%s\n",
 			m.bulkUpdateIDsInput.View(),
 			m.titleInput.View(),
 			m.directorInput.View(),

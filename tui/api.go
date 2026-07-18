@@ -285,14 +285,59 @@ func createMovieCmd(token, title, director, genre, year, desc string) tea.Cmd {
 
 func updateMovieCmd(token, id, title, director, genre, year, desc string) tea.Cmd {
 	return func() tea.Msg {
-		yearInt, _ := strconv.Atoi(year)
+		if strings.TrimSpace(title) == "" &&
+			strings.TrimSpace(director) == "" &&
+			strings.TrimSpace(genre) == "" &&
+			strings.TrimSpace(year) == "" &&
+			strings.TrimSpace(desc) == "" {
+			return updateMsg{err: fmt.Errorf("aucun champ à mettre à jour")}
+		}
+
+		getReq, _ := http.NewRequest("GET", API_URL+"/movies/"+id, nil)
+		getReq.Header.Set("Authorization", "Bearer "+token)
+
+		getResp, err := http.DefaultClient.Do(getReq)
+		if err != nil {
+			return updateMsg{err: err}
+		}
+		defer getResp.Body.Close()
+
+		if getResp.StatusCode != http.StatusOK {
+			data, _ := io.ReadAll(getResp.Body)
+			return updateMsg{err: fmt.Errorf("status %d: %s", getResp.StatusCode, string(data))}
+		}
+
+		var current Movie
+		if err := json.NewDecoder(getResp.Body).Decode(&current); err != nil {
+			return updateMsg{err: err}
+		}
+
+		if strings.TrimSpace(title) != "" {
+			current.Title = title
+		}
+		if strings.TrimSpace(director) != "" {
+			current.Director = director
+		}
+		if strings.TrimSpace(genre) != "" {
+			current.Genre = genre
+		}
+		if strings.TrimSpace(desc) != "" {
+			current.Description = desc
+		}
+		if strings.TrimSpace(year) != "" {
+			yearInt, err := strconv.Atoi(strings.TrimSpace(year))
+			if err != nil || yearInt <= 0 {
+				return updateMsg{err: fmt.Errorf("année invalide")}
+			}
+			current.ReleaseYear = yearInt
+		}
 
 		body := map[string]interface{}{
-			"title":        title,
-			"director":     director,
-			"genre":        genre,
-			"release_year": yearInt,
-			"description":  desc,
+			"title":        current.Title,
+			"director":     current.Director,
+			"genre":        current.Genre,
+			"release_year": current.ReleaseYear,
+			"description":  current.Description,
 		}
 
 		b, _ := json.Marshal(body)
@@ -386,26 +431,45 @@ func parseIDList(input string) ([]uint, error) {
 	return ids, nil
 }
 
-func buildBulkUpdateMovies(ids []uint, title, director, genre, year, desc string) ([]Movie, error) {
-	yearInt := 0
-	if year != "" {
-		var err error
-		yearInt, err = strconv.Atoi(year)
-		if err != nil {
-			return nil, fmt.Errorf("année invalide: %w", err)
-		}
+func buildBulkUpdateMovies(currentMovies []Movie, title, director, genre, year, desc string) ([]Movie, error) {
+	title = strings.TrimSpace(title)
+	director = strings.TrimSpace(director)
+	genre = strings.TrimSpace(genre)
+	desc = strings.TrimSpace(desc)
+	year = strings.TrimSpace(year)
+
+	if title == "" && director == "" && genre == "" && year == "" && desc == "" {
+		return nil, fmt.Errorf("aucun champ à mettre à jour")
 	}
 
-	movies := make([]Movie, 0, len(ids))
-	for _, id := range ids {
-		movies = append(movies, Movie{
-			ID:          id,
-			Title:       title,
-			Director:    director,
-			Genre:       genre,
-			ReleaseYear: yearInt,
-			Description: desc,
-		})
+	var yearPtr *int
+	if year != "" {
+		yearInt, err := strconv.Atoi(year)
+		if err != nil || yearInt <= 0 {
+			return nil, fmt.Errorf("année invalide")
+		}
+		yearPtr = &yearInt
+	}
+
+	movies := make([]Movie, 0, len(currentMovies))
+	for _, movie := range currentMovies {
+		updated := movie
+		if title != "" {
+			updated.Title = title
+		}
+		if director != "" {
+			updated.Director = director
+		}
+		if genre != "" {
+			updated.Genre = genre
+		}
+		if desc != "" {
+			updated.Description = desc
+		}
+		if yearPtr != nil {
+			updated.ReleaseYear = *yearPtr
+		}
+		movies = append(movies, updated)
 	}
 
 	return movies, nil
@@ -413,7 +477,30 @@ func buildBulkUpdateMovies(ids []uint, title, director, genre, year, desc string
 
 func bulkUpdateMoviesCmd(token string, ids []uint, title, director, genre, year, desc string) tea.Cmd {
 	return func() tea.Msg {
-		movies, err := buildBulkUpdateMovies(ids, title, director, genre, year, desc)
+		currentMovies := make([]Movie, 0, len(ids))
+		for _, id := range ids {
+			req, _ := http.NewRequest("GET", API_URL+"/movies/"+strconv.FormatUint(uint64(id), 10), nil)
+			req.Header.Set("Authorization", "Bearer "+token)
+
+			resp, err := http.DefaultClient.Do(req)
+			if err != nil {
+				return bulkUpdateMsg{err: err}
+			}
+
+			data, _ := io.ReadAll(resp.Body)
+			resp.Body.Close()
+			if resp.StatusCode != http.StatusOK {
+				return bulkUpdateMsg{err: fmt.Errorf("status %d: %s", resp.StatusCode, string(data))}
+			}
+
+			var movie Movie
+			if err := json.Unmarshal(data, &movie); err != nil {
+				return bulkUpdateMsg{err: err}
+			}
+			currentMovies = append(currentMovies, movie)
+		}
+
+		movies, err := buildBulkUpdateMovies(currentMovies, title, director, genre, year, desc)
 		if err != nil {
 			return bulkUpdateMsg{err: err}
 		}

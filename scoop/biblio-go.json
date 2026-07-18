@@ -1,0 +1,25 @@
+{
+  "version": "1.1.0",
+  "description": "Biblio Go - interface terminale pour le catalogue de films",
+  "homepage": "https://github.com/laebernard/biblio_go",
+  "license": "MIT",
+  "architecture": {
+    "64bit": {
+      "url": "https://github.com/laebernard/biblio_go/releases/download/v1.1.0/biblio-go-windows-amd64.zip",
+      "hash": "20EAC159F93F6B9AEE6DC3628B5373D35EE5F394159E837CFDEA81CCD1170016",
+      "bin": [
+        "biblio-go.exe"
+      ]
+    }
+  },
+  "checkver": {
+    "github": "laebernard/biblio_go"
+  },
+  "autoupdate": {
+    "architecture": {
+      "64bit": {
+        "url": "https://github.com/laebernard/biblio_go/releases/download/v$version/biblio-go-windows-amd64.zip"
+      }
+    }
+  }
+}

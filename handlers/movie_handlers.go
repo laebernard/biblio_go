@@ -106,17 +106,53 @@ func CreateMovie(c *gin.Context) {
 func UpdateMovie(c *gin.Context) {
 	id := c.Param("id")
 
-	var movie models.Movie
+	var input struct {
+		Title       *string `json:"title"`
+		Director    *string `json:"director"`
+		Genre       *string `json:"genre"`
+		ReleaseYear *int    `json:"release_year"`
+		Description *string `json:"description"`
+	}
 
-	if err := c.ShouldBindJSON(&movie); err != nil {
+	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid body"})
 		return
 	}
 
-	// 👉 on applique l'id de l'URL au movie
+	if input.Title == nil && input.Director == nil && input.Genre == nil && input.ReleaseYear == nil && input.Description == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "no fields to update"})
+		return
+	}
+
+	movie, err := services.GetMovie(id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "movie not found"})
+		return
+	}
+
+	if input.Title != nil {
+		movie.Title = *input.Title
+	}
+	if input.Director != nil {
+		movie.Director = *input.Director
+	}
+	if input.Genre != nil {
+		movie.Genre = *input.Genre
+	}
+	if input.ReleaseYear != nil {
+		if *input.ReleaseYear <= 0 {
+			c.JSON(http.StatusBadRequest, gin.H{"error": "invalid release_year"})
+			return
+		}
+		movie.ReleaseYear = *input.ReleaseYear
+	}
+	if input.Description != nil {
+		movie.Description = *input.Description
+	}
+
 	movie.ID = parseID(id)
 
-	err := services.UpdateMovie(movie)
+	err = services.UpdateMovie(movie)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "cannot update movie"})
 		return
